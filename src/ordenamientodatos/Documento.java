@@ -13,6 +13,19 @@ public class Documento {
     private String nombre;
     private String documento;
 
+    public String getApellido1() {
+        return apellido1;
+    }
+
+    public String getApellido2() {
+        return apellido2;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+
     public Documento(String apellido1, String apellido2, String nombre, String documento) {
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
@@ -26,6 +39,10 @@ public class Documento {
 
     public String getNombreCompleto() {
         return apellido1 + " " + apellido2 + " " + nombre;
+    }
+
+    public boolean equals(Documento d) {
+        return getDocumento().equals(d.getDocumento()) && getNombreCompleto().equals(d.getNombreCompleto());
     }
 
     //********** Atributos y Metodos estaticos ********** 
@@ -79,7 +96,7 @@ public class Documento {
     }
 
     //metodo para verificar si un documento es mayor que otro
-    private static boolean esMayor(Documento d1, Documento d2, int criterio) {
+    public static boolean esMayor(Documento d1, Documento d2, int criterio) {
         if (criterio == 0) {
             //ordenar primero por Nombre Completo y luego por Tipo de Documento
             return ((d1.getNombreCompleto().compareTo(d2.getNombreCompleto()) > 0)
@@ -152,6 +169,7 @@ public class Documento {
         ordenarRapido(pivote + 1, fin, criterio);
     }
     
+//Metodo que ordena los datos según el algoritmo INSERCIÓN
     public static void ordenarInsercion(int criterio) {
         for (int i = 1; i < documentos.size(); i++) {
             Documento actual = documentos.get(i);
@@ -163,4 +181,17 @@ public class Documento {
             documentos.set(j + 1, actual);
         }
     }
+    
+    //Metodo que crea un arbol binario a partir de la lista de documentos
+    public static ArbolBinario obtenerArbolBinario(int criterio) {
+        ArbolBinario ab = new ArbolBinario();
+        ab.setCriterio(criterio);
+        for (int i = 0; i < documentos.size(); i++) {
+            Nodo n = new Nodo(documentos.get(i));
+            ab.insertarNodo(n);
+        }
+        return ab;
+    }
+
 }
+

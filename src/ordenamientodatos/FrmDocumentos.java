@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package ordenamientodatos;
 
-/**
- *
- * @author ktark
- */
+
 public class FrmDocumentos extends javax.swing.JFrame {
 
     /**
@@ -34,11 +26,13 @@ public class FrmDocumentos extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnOrdenarBurbuja = new javax.swing.JButton();
+        btnOrdenarRapido = new javax.swing.JButton();
+        btnOrdenarInserccion = new javax.swing.JButton();
         cmbCriterio = new javax.swing.JComboBox();
         txtTiempo = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDocumentos = new javax.swing.JTable();
 
@@ -46,45 +40,57 @@ public class FrmDocumentos extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Ordenar.png"))); // NOI18N
-        jButton1.setToolTipText("Ordenar Burbuja");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnOrdenarBurbuja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Ordenar.png"))); // NOI18N
+        btnOrdenarBurbuja.setToolTipText("Ordenar Burbuja");
+        btnOrdenarBurbuja.setFocusable(false);
+        btnOrdenarBurbuja.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnOrdenarBurbuja.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnOrdenarBurbuja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnOrdenarBurbujaActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton1);
+        jToolBar1.add(btnOrdenarBurbuja);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/OrdenarRapido.png"))); // NOI18N
-        jButton2.setToolTipText("Ordenar Rapido");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnOrdenarRapido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/OrdenarRapido.png"))); // NOI18N
+        btnOrdenarRapido.setToolTipText("Ordenar Rapido");
+        btnOrdenarRapido.setFocusable(false);
+        btnOrdenarRapido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnOrdenarRapido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnOrdenarRapido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnOrdenarRapidoActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton2);
+        jToolBar1.add(btnOrdenarRapido);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/OrdenarInsercion.png"))); // NOI18N
-        jButton3.setToolTipText("Ordenar Insercion");
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnOrdenarInserccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/OrdenarInsercion.png"))); // NOI18N
+        btnOrdenarInserccion.setToolTipText("Ordenar Insercion");
+        btnOrdenarInserccion.setFocusable(false);
+        btnOrdenarInserccion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnOrdenarInserccion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnOrdenarInserccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnOrdenarInserccionActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton3);
+        jToolBar1.add(btnOrdenarInserccion);
 
         cmbCriterio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre Completo, Tipo de Documento", "Tipo de Documento, Nombre Completo" }));
         jToolBar1.add(cmbCriterio);
         jToolBar1.add(txtTiempo);
+
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Buscar.png"))); // NOI18N
+        btnBuscar.setFocusable(false);
+        btnBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnBuscar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnBuscar);
+        jToolBar1.add(jTextField1);
 
         tblDocumentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,7 +110,7 @@ public class FrmDocumentos extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +123,7 @@ public class FrmDocumentos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnOrdenarBurbujaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarBurbujaActionPerformed
         if (cmbCriterio.getSelectedIndex() >= 0) {
             Util.iniciarCronometro();
             //Documento.ordenarBurbujaRecursivo(0, cmbCriterio.getSelectedIndex());
@@ -125,25 +131,33 @@ public class FrmDocumentos extends javax.swing.JFrame {
             txtTiempo.setText(Util.getTextoTiempoCronometro());
             Documento.mostrarDatos(tblDocumentos);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnOrdenarBurbujaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnOrdenarRapidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarRapidoActionPerformed
         if (cmbCriterio.getSelectedIndex() >= 0) {
             Util.iniciarCronometro();
             Documento.ordenarRapido(0, Documento.documentos.size() - 1, cmbCriterio.getSelectedIndex());
             txtTiempo.setText(Util.getTextoTiempoCronometro());
             Documento.mostrarDatos(tblDocumentos);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnOrdenarRapidoActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnOrdenarInserccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarInserccionActionPerformed
         if(cmbCriterio.getSelectedIndex() >= 0){
             Util.iniciarCronometro();
             Documento.ordenarInsercion(cmbCriterio.getSelectedIndex());
             txtTiempo.setText(Util.getTextoTiempoCronometro());
             Documento.mostrarDatos(tblDocumentos);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnOrdenarInserccionActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        Util.iniciarCronometro();
+        ArbolBinario ab = Documento.obtenerArbolBinario(cmbCriterio.getSelectedIndex());
+        txtTiempo.setText(Util.getTextoTiempoCronometro());
+        
+        ab.mostrar(tblDocumentos);
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,11 +195,13 @@ public class FrmDocumentos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnOrdenarBurbuja;
+    private javax.swing.JButton btnOrdenarInserccion;
+    private javax.swing.JButton btnOrdenarRapido;
     private javax.swing.JComboBox cmbCriterio;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tblDocumentos;
     private javax.swing.JTextField txtTiempo;
