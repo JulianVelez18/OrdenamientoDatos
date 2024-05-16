@@ -184,14 +184,15 @@ public class Documento {
     
     //Metodo que crea un arbol binario a partir de la lista de documentos
     public static ArbolBinario obtenerArbolBinario(int criterio) {
-        ArbolBinario ab = new ArbolBinario();
-        ab.setCriterio(criterio);
-        for (int i = 0; i < documentos.size(); i++) {
-            Nodo n = new Nodo(documentos.get(i));
-            ab.insertarNodo(n);
-        }
-        return ab;
+            ArbolBinario ab = new ArbolBinario();
+    ab.setCriterio(criterio);
+    for (int i = 0; i < documentos.size(); i++) {
+        Nodo n = new Nodo(documentos.get(i));
+        ab.insertarNodo(n);
     }
+    return ab;
+    }
+    
 
 }
 

@@ -1,6 +1,10 @@
 
 package ordenamientodatos;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 
 public class FrmDocumentos extends javax.swing.JFrame {
 
@@ -32,7 +36,7 @@ public class FrmDocumentos extends javax.swing.JFrame {
         cmbCriterio = new javax.swing.JComboBox();
         txtTiempo = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtBusqueda = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDocumentos = new javax.swing.JTable();
 
@@ -90,7 +94,7 @@ public class FrmDocumentos extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btnBuscar);
-        jToolBar1.add(jTextField1);
+        jToolBar1.add(txtBusqueda);
 
         tblDocumentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -150,13 +154,60 @@ public class FrmDocumentos extends javax.swing.JFrame {
             Documento.mostrarDatos(tblDocumentos);
         }
     }//GEN-LAST:event_btnOrdenarInserccionActionPerformed
+    
+    private void buscarEnArbol(Nodo nodo, String criterioBusqueda, List<Documento> resultados) {
+        if (nodo != null) {
+            // Realizar búsqueda en el subárbol izquierdo
+            buscarEnArbol(nodo.izquierdo, criterioBusqueda, resultados);
 
+            // Verificar si el documento coincide con el criterio de búsqueda
+            if (nodo.getDocumento().getNombreCompleto().toLowerCase().contains(criterioBusqueda.toLowerCase())) {
+                resultados.add(nodo.getDocumento()); // Agregar el documento a los resultados
+            }
+
+            // Realizar búsqueda en el subárbol derecho
+            buscarEnArbol(nodo.derecho, criterioBusqueda, resultados);
+        }
+    }
+
+    private void mostrarResultadosEnTabla(List<Documento> resultados) {
+        String[][] datos = null;
+        if (!resultados.isEmpty()) {
+            datos = new String[resultados.size()][Documento.encabezados.length];
+            for (int i = 0; i < resultados.size(); i++) {
+                Documento documento = resultados.get(i);
+                datos[i][0] = documento.getApellido1();
+                datos[i][1] = documento.getApellido2();
+                datos[i][2] = documento.getNombre();
+                datos[i][3] = documento.getDocumento();
+            }
+        }
+        DefaultTableModel dtm = new DefaultTableModel(datos, Documento.encabezados);
+        tblDocumentos.setModel(dtm);
+    }
+    
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        Util.iniciarCronometro();
-        ArbolBinario ab = Documento.obtenerArbolBinario(cmbCriterio.getSelectedIndex());
-        txtTiempo.setText(Util.getTextoTiempoCronometro());
+         String criterioBusqueda = txtBusqueda.getText().trim(); // Obtener el texto de búsqueda
+        int criterio = cmbCriterio.getSelectedIndex(); // Obtener el criterio de ordenamiento seleccionado
         
-        ab.mostrar(tblDocumentos);
+        if (criterioBusqueda.isEmpty()) {
+            // Si el campo de búsqueda está vacío, mostrar todos los datos en la tabla
+            Documento.mostrarDatos(tblDocumentos);
+        } else {
+            // Realizar la búsqueda en el árbol binario
+            Util.iniciarCronometro();
+            ArbolBinario ab = Documento.obtenerArbolBinario(criterio);
+            
+            // Crear una nueva lista de documentos para almacenar los resultados de la búsqueda
+            List<Documento> resultados = new ArrayList<>();
+            buscarEnArbol(ab.getRaiz(), criterioBusqueda, resultados); // Realizar la búsqueda
+            
+            // Mostrar los resultados en la tabla
+            mostrarResultadosEnTabla(resultados);
+            
+            // Actualizar el tiempo de búsqueda en el campo de texto
+            txtTiempo.setText(Util.getTextoTiempoCronometro());
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
@@ -201,9 +252,9 @@ public class FrmDocumentos extends javax.swing.JFrame {
     private javax.swing.JButton btnOrdenarRapido;
     private javax.swing.JComboBox cmbCriterio;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tblDocumentos;
+    private javax.swing.JTextField txtBusqueda;
     private javax.swing.JTextField txtTiempo;
     // End of variables declaration//GEN-END:variables
 }
