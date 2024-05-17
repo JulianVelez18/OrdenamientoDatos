@@ -1,10 +1,8 @@
-
 package ordenamientodatos;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-
 
 public class FrmDocumentos extends javax.swing.JFrame {
 
@@ -147,21 +145,33 @@ public class FrmDocumentos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnOrdenarRapidoActionPerformed
 
     private void btnOrdenarInserccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarInserccionActionPerformed
-        if(cmbCriterio.getSelectedIndex() >= 0){
+        if (cmbCriterio.getSelectedIndex() >= 0) {
             Util.iniciarCronometro();
             Documento.ordenarInsercion(cmbCriterio.getSelectedIndex());
             txtTiempo.setText(Util.getTextoTiempoCronometro());
             Documento.mostrarDatos(tblDocumentos);
         }
     }//GEN-LAST:event_btnOrdenarInserccionActionPerformed
-    
+
     private void buscarEnArbol(Nodo nodo, String criterioBusqueda, List<Documento> resultados) {
         if (nodo != null) {
             // Realizar búsqueda en el subárbol izquierdo
             buscarEnArbol(nodo.izquierdo, criterioBusqueda, resultados);
 
-            // Verificar si el documento coincide con el criterio de búsqueda
-            if (nodo.getDocumento().getNombreCompleto().toLowerCase().contains(criterioBusqueda.toLowerCase())) {
+            // Dividir el criterio de búsqueda en partes
+            String[] partesBusqueda = criterioBusqueda.toLowerCase().split(" ");
+
+            boolean coincide = true;
+            for (String parte : partesBusqueda) {
+                // Verificar si alguna parte del criterio de búsqueda coincide con el nombre completo o documento
+                if (!(nodo.getDocumento().getNombreCompleto().toLowerCase().contains(parte)
+                        || nodo.getDocumento().getDocumento().toLowerCase().contains(parte))) {
+                    coincide = false;
+                    break;
+                }
+            }
+
+            if (coincide) {
                 resultados.add(nodo.getDocumento()); // Agregar el documento a los resultados
             }
 
@@ -185,11 +195,11 @@ public class FrmDocumentos extends javax.swing.JFrame {
         DefaultTableModel dtm = new DefaultTableModel(datos, Documento.encabezados);
         tblDocumentos.setModel(dtm);
     }
-    
+
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-         String criterioBusqueda = txtBusqueda.getText().trim(); // Obtener el texto de búsqueda
+        String criterioBusqueda = txtBusqueda.getText().trim(); // Obtener el texto de búsqueda
         int criterio = cmbCriterio.getSelectedIndex(); // Obtener el criterio de ordenamiento seleccionado
-        
+
         if (criterioBusqueda.isEmpty()) {
             // Si el campo de búsqueda está vacío, mostrar todos los datos en la tabla
             Documento.mostrarDatos(tblDocumentos);
@@ -197,14 +207,14 @@ public class FrmDocumentos extends javax.swing.JFrame {
             // Realizar la búsqueda en el árbol binario
             Util.iniciarCronometro();
             ArbolBinario ab = Documento.obtenerArbolBinario(criterio);
-            
+
             // Crear una nueva lista de documentos para almacenar los resultados de la búsqueda
             List<Documento> resultados = new ArrayList<>();
             buscarEnArbol(ab.getRaiz(), criterioBusqueda, resultados); // Realizar la búsqueda
-            
+
             // Mostrar los resultados en la tabla
             mostrarResultadosEnTabla(resultados);
-            
+
             // Actualizar el tiempo de búsqueda en el campo de texto
             txtTiempo.setText(Util.getTextoTiempoCronometro());
         }
